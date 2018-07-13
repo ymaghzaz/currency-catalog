@@ -1,3 +1,7 @@
+# Currency Catalog Live Demo
+
+https://currency-catalog.firebaseapp.com/#/
+
 # CurrencyCatalog
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.0.8.
