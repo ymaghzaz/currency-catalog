@@ -1,0 +1,9 @@
+<div class="filter">
+    <input type="text" name="filter" (keyup)="onKeySearch($event)" id="filterID"  placeholder="search">
+
+    <div class="filter-selector">
+        <select #filterSelector  (change)="onChangeFilterSelector(filterSelector.value)">
+          <option *ngFor="let selectedFilter of supportedFilterSelector"  >{{selectedFilter}}</option>
+        </select>
+      </div>
+</div>

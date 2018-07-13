@@ -1,8 +1,7 @@
 .currencyDisplay {
-    border-style: groove;
+    border-style: groove; 
     cursor: pointer; /* desktop */
-    display: flex;
-    flex-direction: row;
-	flex-wrap: wrap;
-    justify-content:space-around; 
+    min-height: 50px;
 }
+
+ 

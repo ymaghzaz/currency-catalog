@@ -1,17 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit ,OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Subject } from 'rxjs/internal/Subject';
 import { takeUntil } from 'rxjs/internal/operators/takeUntil';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { Currency } from 'src/public/common/models/currency.model';
+ 
 
 @Component({
   selector: 'app-currency-info',
   templateUrl: './currency-info.component.html',
   styleUrls: ['./currency-info.component.css']
 })
-export class CurrencyInfoComponent implements OnInit {
+export class CurrencyInfoComponent implements OnInit , OnDestroy {
   private unsubscribe$: Subject<void> = new Subject<void>();
   public currencyId$ :BehaviorSubject<string> = new BehaviorSubject(''); 
   public currency :Currency = new Currency();
@@ -21,7 +22,6 @@ export class CurrencyInfoComponent implements OnInit {
     public store: Store<any>,
   ) { 
 
-  
   }
 
   ngOnInit() {
@@ -34,5 +34,9 @@ export class CurrencyInfoComponent implements OnInit {
 
   }
 
+  ngOnDestroy(){
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
+  }
  
 }

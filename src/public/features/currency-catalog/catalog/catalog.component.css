@@ -1,0 +1,28 @@
+
+.catalog {
+  display: flex;
+  flex-wrap:wrap;
+  justify-content:flex-start;
+  margin:-10px 0 0 -10px;
+}
+
+/* Medium screens */
+@media all and (max-width: 1600px) {
+    .currency-info{
+        width: 16.6%;
+    }
+  }
+
+/* Tablet screens */
+@media all and (max-width: 1000px) {
+    .currency-info{
+        width: 25%;
+    }
+  }
+  
+  /* Small screens */
+@media all and (max-width: 640px) {
+    .currency-info{
+        width: 50%;
+    }
+  }

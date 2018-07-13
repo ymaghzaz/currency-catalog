@@ -1,0 +1,33 @@
+
+.filter{
+    margin-top: 20px;
+    margin-bottom: 20px;
+    display: flex;
+    direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+}
+
+input{
+  
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+
+.filter-selector select{
+    margin-left: 10px;
+    background: rgb(161, 167, 167);
+    border: 1px solid transparent;
+    border-color: transparent transparent rgba(0, 0, 0, 0.1) transparent;
+    height: 35px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+}
