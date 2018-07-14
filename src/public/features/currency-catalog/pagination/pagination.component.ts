@@ -3,6 +3,7 @@ import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { Store } from '@ngrx/store';
 import { Subject } from 'rxjs/internal/Subject';
 import { takeUntil } from 'rxjs/internal/operators/takeUntil';
+import { DEFAULT_SELECTED_PAGE, SUPPORTED_PAGES_SIZES } from '../../../common/constants/config';
 
 @Component({
   selector: 'app-pagination',
@@ -10,22 +11,22 @@ import { takeUntil } from 'rxjs/internal/operators/takeUntil';
   styleUrls: ['./pagination.component.css']
 })
 export class PaginationComponent implements OnInit  , OnDestroy{
-  private unsubscribe$: Subject<void> = new Subject<void>();
  @Input() public pageSize$ :BehaviorSubject<number> ;
  @Input()  public selectedPage$ :BehaviorSubject<number> ;
- public supportedPageSizes:any =[ 10 , 50 , 100 , 200];
+ public supportedPageSizes:any = SUPPORTED_PAGES_SIZES;
  public links:any = {};
- public pages :number= 0;
+ public numberOfPages :number= 0;
  public selectedPage :number= 0;
- public buttonsPage :any = [];
- 
+ public buttonsToSelectPages :any = [];
+ private unsubscribe$: Subject<void> = new Subject<void>();
+
   constructor( public store: Store<any>) { }
 
   ngOnInit() {
     this.store.pipe(takeUntil(this.unsubscribe$)).subscribe(storeInfo=>{
-      this.selectedPage = storeInfo && storeInfo.currencyCatalog && storeInfo.currencyCatalog.selectedPage || 1;
+      this.selectedPage = storeInfo && storeInfo.currencyCatalog && storeInfo.currencyCatalog.selectedPage || DEFAULT_SELECTED_PAGE;
       this.links =  storeInfo && storeInfo.currencyCatalog && storeInfo.currencyCatalog.links || {};
-      this.pages = storeInfo && storeInfo.currencyCatalog && storeInfo.currencyCatalog.meta && storeInfo.currencyCatalog.meta.pages || 0;
+      this.numberOfPages = storeInfo && storeInfo.currencyCatalog && storeInfo.currencyCatalog.meta && storeInfo.currencyCatalog.meta.pages || 0;
       this.createPagination(this.selectedPage);
     })
   }
@@ -38,18 +39,18 @@ export class PaginationComponent implements OnInit  , OnDestroy{
   }
 
   createPagination(selectedPage){
-      this.buttonsPage = [];
+      this.buttonsToSelectPages = [];
       if(selectedPage-2>0){
-        this.buttonsPage.push(selectedPage-2);
+        this.buttonsToSelectPages.push(selectedPage-2);
       }
       if(selectedPage-1>0){
-        this.buttonsPage.push(selectedPage-1);
+        this.buttonsToSelectPages.push(selectedPage-1);
       }
-      if(selectedPage+1<=this.pages){
-        this.buttonsPage.push(selectedPage+1);
+      if(selectedPage+1<=this.numberOfPages){
+        this.buttonsToSelectPages.push(selectedPage+1);
       }
-      if(selectedPage+2<=this.pages){
-        this.buttonsPage.push(selectedPage+2);
+      if(selectedPage+2<=this.numberOfPages){
+        this.buttonsToSelectPages.push(selectedPage+2);
       }
   }
 

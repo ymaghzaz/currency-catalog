@@ -4,16 +4,11 @@ import { ICurrencyApiService } from '../../../core/interfaces/currency-api.servi
 import { Store } from '@ngrx/store';
 import { ActionInitCurrencyCatalog, selectorPageSize, selectorSelectedPage, ActionUpdateSelectedPage, SelectorCurrenciesData } from '../../../core/reducers/currency-catalog.reducer';
 import { Subject } from 'rxjs/internal/Subject';
-import { switchMap  } from 'rxjs/operators';
-import { takeUntil } from 'rxjs/internal/operators/takeUntil';
-import { combineLatest } from 'rxjs/internal/operators/combineLatest';
-import { mergeAll } from 'rxjs/internal/operators/mergeAll';
+import { switchMap , takeUntil, combineLatest , debounceTime} from 'rxjs/operators';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { Observable } from 'rxjs/internal/Observable';
 import { Currency } from 'src/public/common/models/currency.model';
-import { debounceTime } from 'rxjs/internal/operators/debounceTime';
-import { distinctUntilChanged } from 'rxjs/internal/operators/distinctUntilChanged';
-import { filter } from 'rxjs/internal/operators/filter';
+import { DEFAULT_SELECTED_PAGE, DEFAULT_SIZE_PAGE } from '../../../common/constants/config';
  
 @Component({
   selector: 'app-catalog',
@@ -22,8 +17,8 @@ import { filter } from 'rxjs/internal/operators/filter';
 })
 export class CatalogComponent implements OnInit  , OnDestroy{
   private unsubscribe$: Subject<void> = new Subject<void>();
-  public pageSize$ :BehaviorSubject<number> = new BehaviorSubject(10);
-  public selectedPage$ :BehaviorSubject<number> = new BehaviorSubject(1);
+  public pageSize$ :BehaviorSubject<number> = new BehaviorSubject(DEFAULT_SIZE_PAGE);
+  public selectedPage$ :BehaviorSubject<number> = new BehaviorSubject(DEFAULT_SELECTED_PAGE);
   public currenciesData$ : BehaviorSubject<Currency[]>= new BehaviorSubject([]);
 
   constructor(
@@ -33,8 +28,8 @@ export class CatalogComponent implements OnInit  , OnDestroy{
 
   ngOnInit() {
     this.store.pipe(takeUntil(this.unsubscribe$)).subscribe(storeInfo=>{
-      let pageSize = storeInfo && storeInfo.currencyCatalog && storeInfo.currencyCatalog.pageSize || 10 ;
-      let selectedPage = storeInfo && storeInfo.currencyCatalog && storeInfo.currencyCatalog.selectedPage || 1;
+      let pageSize = storeInfo && storeInfo.currencyCatalog && storeInfo.currencyCatalog.pageSize || DEFAULT_SIZE_PAGE ;
+      let selectedPage = storeInfo && storeInfo.currencyCatalog && storeInfo.currencyCatalog.selectedPage || DEFAULT_SELECTED_PAGE;
       if(this.pageSize$.getValue() !== pageSize){
         this.pageSize$.next(pageSize);
       }
@@ -48,6 +43,7 @@ export class CatalogComponent implements OnInit  , OnDestroy{
     
     this.pageSize$.pipe(
       combineLatest(this.selectedPage$),
+      debounceTime(100),
       switchMap((pageConfig) =>{
         let pageSize = pageConfig[0];
         let selectedPage =  pageConfig[1];

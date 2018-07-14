@@ -1,5 +1,6 @@
 import { Action } from '@ngrx/store';
 import { Currency } from 'src/public/common/models/currency.model';
+import { DEFAULT_SIZE_PAGE, DEFAULT_SELECTED_PAGE } from 'src/public/common/constants/config';
 
 export enum CurrencyCatalogActionTypes {
     INIT_CURRENCIES_DATA = '[CurrencyCatalog] Init Currencies Data',
@@ -25,8 +26,8 @@ export class ActionUpdateSelectedPage implements Action {
 export type CurrencyActions = ActionInitCurrencyCatalog | ActionUpdatePageSize |ActionUpdateSelectedPage;
 
 export const initialState = {
-    selectedPage:1,
-    pageSize:10,
+    selectedPage:DEFAULT_SELECTED_PAGE,
+    pageSize:DEFAULT_SIZE_PAGE,
     data:[],
     links:[],
     meta:{}

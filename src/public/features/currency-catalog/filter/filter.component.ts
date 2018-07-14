@@ -1,11 +1,9 @@
 import { Component, OnInit , Input  , OnDestroy} from '@angular/core';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
-import { debounceTime } from 'rxjs/internal/operators/debounceTime';
-import { distinctUntilChanged } from 'rxjs/internal/operators/distinctUntilChanged';
-import { takeUntil } from 'rxjs/internal/operators/takeUntil';
+import {  takeUntil  , combineLatest ,distinctUntilChanged, debounceTime} from 'rxjs/operators';
 import { Store } from '@ngrx/store';
 import { Subject } from 'rxjs/internal/Subject';
-import { Currency } from 'src/public/common/models/currency.model';
+import { Currency } from '../../../common/models/currency.model';
 import _ from "lodash";
 
 @Component({

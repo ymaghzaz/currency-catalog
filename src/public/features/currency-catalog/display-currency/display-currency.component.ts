@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Currency } from 'src/public/common/models/currency.model';
+import { Currency } from '../../../common/models/currency.model';
 import { Router } from '@angular/router';
 
 @Component({

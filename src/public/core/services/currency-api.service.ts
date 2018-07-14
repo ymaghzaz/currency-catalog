@@ -13,8 +13,6 @@ export class CurrencyApiService implements ICurrencyApiService {
   public getCurrencies(pageSize:number,selectedPage:number): Observable<any> { 
     return this.http.get(`${CURRENCIES_API}?page[number]=${selectedPage}&page[size]=${pageSize}`)
   }
-  public getCurrenciesByPage(ressourcesApi): Observable<any> {
-    return this.http.get(`${OPEN_FINTECH}${ressourcesApi}`)
-  }
+
  
 }
