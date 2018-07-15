@@ -41,16 +41,32 @@ export class PaginationComponent implements OnInit  , OnDestroy{
   createPagination(selectedPage){
       this.buttonsToSelectPages = [];
       if(selectedPage-2>0){
-        this.buttonsToSelectPages.push(selectedPage-2);
+        this.buttonsToSelectPages.push({
+          value : selectedPage-2,
+          selected : false
+        });
       }
       if(selectedPage-1>0){
-        this.buttonsToSelectPages.push(selectedPage-1);
+        this.buttonsToSelectPages.push({
+          value : selectedPage-1,
+          selected : false
+        });
       }
+      this.buttonsToSelectPages.push({
+        value : selectedPage,
+        selected : true
+      });
       if(selectedPage+1<=this.numberOfPages){
-        this.buttonsToSelectPages.push(selectedPage+1);
+        this.buttonsToSelectPages.push({
+          value : selectedPage+1,
+          selected : false
+        });
       }
       if(selectedPage+2<=this.numberOfPages){
-        this.buttonsToSelectPages.push(selectedPage+2);
+        this.buttonsToSelectPages.push({
+          value : selectedPage+2,
+          selected : false
+        });
       }
   }
 

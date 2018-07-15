@@ -8,9 +8,12 @@
     
     <div class="page">
       <button *ngIf='links.first' (click)='selectPage(1)'> << </button>
-      <button *ngIf='links.prev' (click)='selectPage(selectedPage-1)'> Previous </button>
-      <button *ngFor='let pageNumber of buttonsToSelectPages' (click)='selectPage(pageNumber)'>{{pageNumber}}</button>
-      <button *ngIf='links.next'(click)='selectPage(selectedPage+1)'> Next </button>
+      <button *ngIf='links.prev' (click)='selectPage(selectedPage -1)'> Previous </button>
+      <button *ngFor='let pageNumber of buttonsToSelectPages' 
+      [class.selected]='pageNumber.selected'
+      [disabled]='pageNumber.selected' (click)='selectPage(pageNumber.value)'
+       >{{pageNumber.value}}</button>
+      <button *ngIf='links.next'(click)='selectPage(selectedPage +1)'> Next </button>
       <button *ngIf='links.last' (click)='selectPage(pages)'> >> </button>
     </div>
 </div>
