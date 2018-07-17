@@ -14,6 +14,6 @@
       [disabled]='pageNumber.selected' (click)='selectPage(pageNumber.value)'
        >{{pageNumber.value}}</button>
       <button *ngIf='links.next'(click)='selectPage(selectedPage +1)'> Next </button>
-      <button *ngIf='links.last' (click)='selectPage(pages)'> >> </button>
+      <button *ngIf='links.last' (click)='selectPage(numberOfPages)'> >> </button>
     </div>
 </div>
